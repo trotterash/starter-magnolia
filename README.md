@@ -6,25 +6,20 @@ Magnolia 6.4.0 Community Edition with Travel Demo, running in Docker.
 
 ### First Time Setup
 
-1. Run the interactive setup (one-time only):
+1. Download Magnolia (one-time, ~190MB download):
    ```bash
-   docker compose run --rm magnolia-cli mgnl jumpstart
+   ./download-magnolia.sh
    ```
 
-2. When prompted, select:
-   - **Choose a template**: Option `2` (demo-webapps)
-   - **Choose a template**: Option `1` (magnolia-community-demo-webapp)
-
-3. Wait 2-3 minutes for download and extraction
-
-4. Start Magnolia:
+2. Start Magnolia:
    ```bash
    docker compose up -d
    ```
 
+3. Wait 2-3 minutes for the first startup (initializes database)
+
 ### Subsequent Runs
 
-After the first setup, simply run:
 ```bash
 docker compose up -d
 ```

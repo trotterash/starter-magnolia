@@ -1,21 +1,22 @@
 #!/bin/bash
 set -e
 
+# If arguments are provided, execute them (allows running CLI commands)
+if [ $# -gt 0 ]; then
+    exec "$@"
+fi
+
 # Check if Magnolia has been set up (apache-tomcat directory exists)
 if [ ! -d "/magnolia/apache-tomcat" ]; then
     echo "=============================================="
     echo "FIRST TIME SETUP REQUIRED"
     echo "=============================================="
     echo ""
-    echo "Please run the following commands:"
+    echo "Please download Magnolia first:"
     echo ""
-    echo "  docker compose run --rm magnolia-cli mgnl jumpstart"
+    echo "  ./download-magnolia.sh"
     echo ""
-    echo "Then select:"
-    echo "  - Option 2: demo-webapps"
-    echo "  - Option 1: magnolia-community-demo-webapp"
-    echo ""
-    echo "After setup completes, start with:"
+    echo "Then start with:"
     echo "  docker compose up -d"
     echo ""
     echo "=============================================="
