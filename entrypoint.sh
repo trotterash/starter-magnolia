@@ -1,21 +1,21 @@
 #!/bin/bash
 set -e
 
-# If package.json doesn't exist, show setup instructions
-if [ ! -f "/magnolia/package.json" ]; then
-    echo "==================================================="
-    echo "First time setup required!"
-    echo "Run: mgnl jumpstart"
-    echo "Select: 2 (demo-webapps) -> 1 (magnolia-community-demo-webapp)"
-    echo "==================================================="
+# Check if Magnolia needs to be downloaded
+if [ ! -d "/magnolia/apache-tomcat" ]; then
+    echo "First run detected. Downloading Magnolia..."
+    cd /magnolia
     
-    # If running with arguments, execute them instead of trying to start
-    if [ $# -gt 0 ]; then
-        exec "$@"
+    # Install dependencies if needed
+    if [ ! -d "node_modules" ]; then
+        npm install
     fi
     
-    echo "Waiting for setup..."
-    exit 0
+    # Download Magnolia using the CLI (non-interactive with config files already present)
+    echo "Downloading Magnolia Travel Demo..."
+    npm run mgnl -- download magnolia-community-demo-webapp
+    
+    echo "Setup complete!"
 fi
 
 # Start Magnolia

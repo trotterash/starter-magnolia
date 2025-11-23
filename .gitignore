@@ -1,9 +1,7 @@
-# Magnolia instance files
+# Magnolia generated files
 apache-tomcat/
-light-modules/
 node_modules/
 package-lock.json
-mgnl.config.js
 mgnl.error.log
 
 # Downloaded bundles
