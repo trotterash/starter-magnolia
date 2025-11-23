@@ -4,18 +4,23 @@ This is a Magnolia 6.4.0 Community Edition instance with the Travel Demo content
 
 ## Quick Start
 
-Simply run:
+First time setup (interactive):
+
+```bash
+docker compose run --rm magnolia-cli mgnl jumpstart
+# Select: 2 (demo-webapps)
+# Then: 1 (magnolia-community-demo-webapp)
+```
+
+Start Magnolia:
 
 ```bash
 docker compose up -d
 ```
 
-On first run, it will automatically:
-1. Download and set up Magnolia with the travel demo
-2. Configure the development environment
-3. Start the Magnolia server
+The jumpstart command downloads Magnolia 6.4.0 with the travel demo (~2-3 minutes on first run).
 
-Wait about 2-3 minutes for the initial setup and startup, then access:
+Access the instance at:
 
 - **Admin Central**: http://localhost:8080/magnoliaAuthor/.magnolia/admincentral
 - **Author Instance**: http://localhost:8080/magnoliaAuthor
@@ -77,4 +82,3 @@ Generated files (not in git):
 - Development mode is enabled (`magnolia.develop=true`)
 - Auto-update is enabled (`magnolia.update.auto=true`)
 - Light modules directory is configured and watched for changes
-- First startup takes longer due to automatic setup (2-3 minutes)

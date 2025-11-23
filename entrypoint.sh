@@ -1,19 +1,21 @@
 #!/bin/bash
 set -e
 
-# Check if Magnolia is already set up
+# If package.json doesn't exist, show setup instructions
 if [ ! -f "/magnolia/package.json" ]; then
-    echo "First run detected. Setting up Magnolia..."
-    cd /magnolia
+    echo "==================================================="
+    echo "First time setup required!"
+    echo "Run: mgnl jumpstart"
+    echo "Select: 2 (demo-webapps) -> 1 (magnolia-community-demo-webapp)"
+    echo "==================================================="
     
-    # Run jumpstart non-interactively using a temporary input file
-    # Select: demo-webapps (2) -> magnolia-community-demo-webapp (1)
-    echo "2" > /tmp/mgnl-input
-    echo "1" >> /tmp/mgnl-input
-    mgnl jumpstart < /tmp/mgnl-input
-    rm -f /tmp/mgnl-input
+    # If running with arguments, execute them instead of trying to start
+    if [ $# -gt 0 ]; then
+        exec "$@"
+    fi
     
-    echo "Setup complete!"
+    echo "Waiting for setup..."
+    exit 0
 fi
 
 # Start Magnolia
