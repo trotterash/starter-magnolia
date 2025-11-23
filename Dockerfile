@@ -2,7 +2,7 @@ FROM node:22
 
 # Install Java (required by Magnolia)
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk maven && \
+    apt-get install -y openjdk-17-jdk maven wget unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

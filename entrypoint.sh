@@ -1,21 +1,25 @@
 #!/bin/bash
 set -e
 
-# Check if Magnolia needs to be downloaded
+# Check if Magnolia has been set up (apache-tomcat directory exists)
 if [ ! -d "/magnolia/apache-tomcat" ]; then
-    echo "First run detected. Downloading Magnolia..."
-    cd /magnolia
-    
-    # Install dependencies if needed
-    if [ ! -d "node_modules" ]; then
-        npm install
-    fi
-    
-    # Download Magnolia using the CLI (non-interactive with config files already present)
-    echo "Downloading Magnolia Travel Demo..."
-    npm run mgnl -- download magnolia-community-demo-webapp
-    
-    echo "Setup complete!"
+    echo "=============================================="
+    echo "FIRST TIME SETUP REQUIRED"
+    echo "=============================================="
+    echo ""
+    echo "Please run the following commands:"
+    echo ""
+    echo "  docker compose run --rm magnolia-cli mgnl jumpstart"
+    echo ""
+    echo "Then select:"
+    echo "  - Option 2: demo-webapps"
+    echo "  - Option 1: magnolia-community-demo-webapp"
+    echo ""
+    echo "After setup completes, start with:"
+    echo "  docker compose up -d"
+    echo ""
+    echo "=============================================="
+    exit 1
 fi
 
 # Start Magnolia

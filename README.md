@@ -1,21 +1,35 @@
 # Magnolia CMS Travel Demo
 
-This is a Magnolia 6.4.0 Community Edition instance with the Travel Demo content.
+Magnolia 6.4.0 Community Edition with Travel Demo, running in Docker.
 
 ## Quick Start
 
-Simply run:
+### First Time Setup
 
+1. Run the interactive setup (one-time only):
+   ```bash
+   docker compose run --rm magnolia-cli mgnl jumpstart
+   ```
+
+2. When prompted, select:
+   - **Choose a template**: Option `2` (demo-webapps)
+   - **Choose a template**: Option `1` (magnolia-community-demo-webapp)
+
+3. Wait 2-3 minutes for download and extraction
+
+4. Start Magnolia:
+   ```bash
+   docker compose up -d
+   ```
+
+### Subsequent Runs
+
+After the first setup, simply run:
 ```bash
 docker compose up -d
 ```
 
-On first run, it will automatically:
-1. Install dependencies
-2. Download Magnolia 6.4.0 with the travel demo
-3. Start the Magnolia server
-
-Wait about 2-3 minutes for the initial setup and startup.
+## Access Magnolia
 
 Access the instance at:
 
@@ -29,20 +43,27 @@ Access the instance at:
 
 ## Managing the Instance
 
-### Stop and start
+### Stop Magnolia
 ```bash
 docker compose down
-docker compose up -d
 ```
 
 ### View logs
 ```bash
-docker logs -f magnolia-cli
+docker compose logs -f
 ```
 
 ### Access shell
 ```bash
-docker exec -it magnolia-cli bash
+docker compose exec magnolia-cli bash
+```
+
+### Clean restart
+To completely reset (removes all data):
+```bash
+docker compose down
+sudo rm -rf apache-tomcat node_modules
+# Then run first time setup again
 ```
 
 ## CLI Commands
@@ -62,20 +83,21 @@ docker exec -it magnolia-cli bash -c "cd /magnolia && npm run mgnl -- create-com
 
 ## Project Structure
 
-- `Dockerfile` - Docker image configuration
-- `docker-compose.yml` - Docker Compose configuration
-- `entrypoint.sh` - Container startup script with auto-setup
+- `Dockerfile` - Docker image with Node 22, Java 17, and Magnolia CLI
+- `docker-compose.yml` - Docker Compose service configuration
+- `entrypoint.sh` - Container startup script
+- `package.json` - Pre-generated NPM configuration
+- `mgnl.config.js` - Pre-generated Magnolia CLI configuration
 - `.gitignore` - Git ignore rules
 
-Generated files (not in git):
+Generated during setup (not in git):
 - `apache-tomcat/` - Tomcat server with Magnolia webapp
-- `light-modules/` - Custom light modules directory
 - `node_modules/` - NPM dependencies
-- `package.json` - NPM configuration
+- `package-lock.json` - NPM lock file
 
 ## Notes
 
-- The instance uses an embedded H2 database (data persists in container volumes)
-- Development mode is enabled (`magnolia.develop=true`)
-- Auto-update is enabled (`magnolia.update.auto=true`)
-- Light modules directory is configured and watched for changes
+- Uses embedded H2 database (data persists in `apache-tomcat` directory)
+- Development mode enabled for hot-reloading
+- Light modules directory available at `light-modules/`
+- First startup after setup takes 2-3 minutes to initialize database
