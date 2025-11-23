@@ -1,0 +1,10 @@
+services:
+  magnolia-cli:
+    build: .
+    container_name: magnolia-cli
+    volumes:
+      - .:/magnolia
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
