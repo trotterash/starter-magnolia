@@ -6,9 +6,12 @@ if [ ! -f "/magnolia/package.json" ]; then
     echo "First run detected. Setting up Magnolia..."
     cd /magnolia
     
-    # Run jumpstart non-interactively with echo -e
+    # Run jumpstart non-interactively using a temporary input file
     # Select: demo-webapps (2) -> magnolia-community-demo-webapp (1)
-    echo -e "2\n1" | mgnl jumpstart
+    echo "2" > /tmp/mgnl-input
+    echo "1" >> /tmp/mgnl-input
+    mgnl jumpstart < /tmp/mgnl-input
+    rm -f /tmp/mgnl-input
     
     echo "Setup complete!"
 fi
